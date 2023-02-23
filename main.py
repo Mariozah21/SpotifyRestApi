@@ -40,5 +40,7 @@ headers = {
 
 response = requests.request("GET", url, headers=headers, params=querystring)
 
-print(response.text)
+#print(response.text)
+for track in response.json()['tracks']:
+    print (track['name'])
     
