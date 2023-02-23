@@ -2,7 +2,17 @@ import requests
 import base64
 import json
 import datetime
-#from secrets import *
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/main")
+def main():
+    return {"Hi"}
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 ClientID = "1855ccc24e144ff4a8daef9848c4780f"
 ClientPassword = "2a001b3e61894450ad7ae6bc763477a1"
@@ -49,10 +59,12 @@ for track in response.json()['tracks']:
     trackLengthInms=track['duration_ms']
     tlseconds,tlmiliseconds = divmod(trackLengthInms,1000)
     tlminutes,tlseconds = divmod(tlseconds,60)
+
     if tlseconds<10:
         tlseconds=("0"+str(tlseconds))
     else:
         tlseconds=str(tlseconds)
+
     trackLength = ( str(tlminutes) + ":"+ tlseconds)
     print (trackName,trackID,trackPopularity,trackAlbum,trackLength)
     
