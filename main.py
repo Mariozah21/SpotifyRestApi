@@ -1,3 +1,4 @@
+from re import template
 import requests
 import base64
 import json
@@ -41,26 +42,46 @@ response = requests.request("GET", url, headers=headers, params=querystring)
 
 #print(response.text)
 
-dataOut = []
-for track in response.json()['tracks']:
-    dataTBV={}
-    dataTBV['name']= track['name']
-    dataTBV['id']=track['id']
-    dataTBV['popularity']=track['popularity']
-    dataTBV['album']=track['album']['name']
-    trackLengthInms=track['duration_ms']
-    tlseconds,tlmiliseconds = divmod(trackLengthInms,1000)
-    tlminutes,tlseconds = divmod(tlseconds,60)
+tracks=[]
 
+tracknames=[]
+trackids=[]
+trackpopularities=[]
+trackalbums=[]
+tracklengths=[]
+
+for track in response.json()['tracks']:
+    
+    #trackName= track['name']
+    #trackId=track['id']
+    #trackPopularity=track['popularity']
+    #trackAlbum=track['album']['name']
+    tlseconds,tlmiliseconds = divmod(track['duration_ms'],1000)
+    tlminutes,tlseconds = divmod(tlseconds,60)
     if tlseconds<10:
         tlseconds=("0"+str(tlseconds))
     else:
         tlseconds=str(tlseconds)
 
-    dataTBV['trackLength'] = ( str(tlminutes) + ":"+ tlseconds)
-        #print (trackName,trackID,trackPopularity,trackAlbum,trackLength)
-    dataOut.append(dataTBV)
+    trackLength = ( str(tlminutes) + ":"+ tlseconds)
+    trackinfo=dict(name=str(track['name']),id=str(track['id']),popularity=str(track['popularity']),album=str(track['album']['name']),length=trackLength)
+    tracks.append(trackinfo)
+    #print(trackName,"|",trackId,"|",trackPopularity,"|",trackAlbum,"|",trackLength)
+    #tracknames.append((trackName))
+    #trackids.append((trackId))
+    #trackpopularities.append((trackPopularity))
+    #trackalbums.append((trackAlbum))
+    #tracklengths.append((trackLength))
+
+print(tracks)
+
+
+#print(tracknames)
+#print(trackids)
+#print(trackalbums)
+#print(trackpopularities)
+#print(tracklengths)
+    
          
-        
-print(dataOut)
+
     
