@@ -30,5 +30,15 @@ def generateAccessToken(ClientId,ClientSecret):
 
 authToken = generateAccessToken(ClientID,ClientPassword)
 
+url = "https://api.spotify.com/v1/artists/53XhwfbYqKCa1cC15pYq2q/top-tracks"
+querystring = {"market":"CZ"}
 
+headers = {
+    "accept": "application/json"
+    ,"Authorization": f"Bearer {authToken}"
+}
+
+response = requests.request("GET", url, headers=headers, params=querystring)
+
+print(response.text)
     
