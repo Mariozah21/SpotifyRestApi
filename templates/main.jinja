@@ -1,22 +1,38 @@
 <!DOCTYPE HTML>
 <html>
-<table>
-    <tr>
-        <th> Name </th>
-        <th> Album name </th>
-        <th> Track length </th>
-        <th> Popularity </th>
-        <th> Track id </th>
-    </tr>
-    {% for track in tracks %}
-    <tr>
-        <th></th>
-        <td>{{track.name}}</td>
-        <td>{{track.album}}</td>
-        <td>{{track.length}}</td>
-        <td>{{track.popularity}}</td>
-        <td>{{track.id}}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <head>
+        
+        <link rel="stylesheet" href="static\css\structure.css">
+
+    </head>
+    <body>
+    <table>
+        <caption>
+            Top tracks of Imagine Dragons
+        </caption>
+        <thead>
+            <tr>
+            <th> Name </th>
+            <th> Album name </th>
+            <th> Track length </th>
+            <th> Popularity </th>
+            <th> Track id </th>
+        </tr>
+        </thead>
+        <tbody>
+           {% for track in tracks %}
+        <tr>
+            <td>{{track.name}}</td>
+            <td>{{track.album}}</td>
+            <td>{{track.length}}</td>
+            <td>{{track.popularity}}</td>
+            <td>{{track.id}}</td>
+        </tr>
+        {% endfor %} 
+        </tbody>
+        
+    </table>
+    </body>
+    
+
 </html>
