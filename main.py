@@ -41,25 +41,26 @@ response = requests.request("GET", url, headers=headers, params=querystring)
 
 #print(response.text)
 
-def PrintData():
-    for track in response.json()['tracks']:
-        trackName= track['name']
-        trackID=track['id']
-        trackPopularity=track['popularity']
-        trackAlbum=track['album']['name']
-        trackLengthInms=track['duration_ms']
-        tlseconds,tlmiliseconds = divmod(trackLengthInms,1000)
-        tlminutes,tlseconds = divmod(tlseconds,60)
+dataOut = []
+for track in response.json()['tracks']:
+    dataTBV={}
+    dataTBV['name']= track['name']
+    dataTBV['id']=track['id']
+    dataTBV['popularity']=track['popularity']
+    dataTBV['album']=track['album']['name']
+    trackLengthInms=track['duration_ms']
+    tlseconds,tlmiliseconds = divmod(trackLengthInms,1000)
+    tlminutes,tlseconds = divmod(tlseconds,60)
 
-        if tlseconds<10:
-            tlseconds=("0"+str(tlseconds))
-        else:
-            tlseconds=str(tlseconds)
+    if tlseconds<10:
+        tlseconds=("0"+str(tlseconds))
+    else:
+        tlseconds=str(tlseconds)
 
-        trackLength = ( str(tlminutes) + ":"+ tlseconds)
+    dataTBV['trackLength'] = ( str(tlminutes) + ":"+ tlseconds)
         #print (trackName,trackID,trackPopularity,trackAlbum,trackLength)
-        dataToBeViewed = dataToBeViewed.append(trackName + trackID + trackPopularity + trackAlbum + trackLength) 
-    return dataToBeViewed
+    dataOut.append(dataTBV)
+         
         
-print(PrintData)
+print(dataOut)
     
