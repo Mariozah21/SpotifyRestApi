@@ -1,7 +1,11 @@
+/* General font change + other styling if need be */
+
 html{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-/* Table spacing */
+
+
+/* font of caption */
 
 caption{
     font-size: large;
@@ -9,12 +13,12 @@ caption{
     color: rgb(0, 83, 250);
     border-bottom: 1px solid #61cbce;
 }
+
+/* Table spacing */
 table {
     table-layout: fixed;
     width: 100%;
-    border-collapse: collapse;
-    
-    
+    border-collapse: collapse;    
 }
 
 thead{

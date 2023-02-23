@@ -27,9 +27,10 @@ def generateAccessToken(ClientId,ClientSecret):
 
     token = r.json()['access_token']
     return token
-
+#authorized token
 authToken = generateAccessToken(ClientID,ClientPassword)
 
+#Query url
 url = "https://api.spotify.com/v1/artists/53XhwfbYqKCa1cC15pYq2q/top-tracks"
 querystring = {"market":"CZ"}
 
@@ -37,25 +38,11 @@ headers = {
     "accept": "application/json"
     ,"Authorization": f"Bearer {authToken}"
 }
-
+#raw data from query
 response = requests.request("GET", url, headers=headers, params=querystring)
-
-#print(response.text)
-
+#extraction of data
 tracks=[]
-
-tracknames=[]
-trackids=[]
-trackpopularities=[]
-trackalbums=[]
-tracklengths=[]
-
 for track in response.json()['tracks']:
-    
-    #trackName= track['name']
-    #trackId=track['id']
-    #trackPopularity=track['popularity']
-    #trackAlbum=track['album']['name']
     tlseconds,tlmiliseconds = divmod(track['duration_ms'],1000)
     tlminutes,tlseconds = divmod(tlseconds,60)
     if tlseconds<10:
@@ -66,22 +53,7 @@ for track in response.json()['tracks']:
     trackLength = ( str(tlminutes) + ":"+ tlseconds)
     trackinfo=dict(name=str(track['name']),id=str(track['id']),popularity=str(track['popularity']),album=str(track['album']['name']),length=trackLength)
     tracks.append(trackinfo)
-    #print(trackName,"|",trackId,"|",trackPopularity,"|",trackAlbum,"|",trackLength)
-    #tracknames.append((trackName))
-    #trackids.append((trackId))
-    #trackpopularities.append((trackPopularity))
-    #trackalbums.append((trackAlbum))
-    #tracklengths.append((trackLength))
 
-print(tracks)
-
-
-#print(tracknames)
-#print(trackids)
-#print(trackalbums)
-#print(trackpopularities)
-#print(tracklengths)
-    
          
 
     
